@@ -1,0 +1,12 @@
+{
+  "name": "mapper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mapper.js",
+  "scripts": {
+    "start": "node mapper.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

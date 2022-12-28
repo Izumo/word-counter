@@ -1,0 +1,12 @@
+{
+  "name": "reducer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "reducer.js",
+  "scripts": {
+    "start": "node reducer.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

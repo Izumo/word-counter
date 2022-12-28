@@ -1,0 +1,12 @@
+{
+  "name": "tokenizer",
+  "version": "1.0.0",
+  "main": "tokenizer.js",
+  "scripts": {
+    "start": "node tokenizer.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
