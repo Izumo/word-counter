@@ -4,6 +4,7 @@ from flask import request
 import requests
 import json
 import os
+import datetime
 
 import queue
 import threading
@@ -18,27 +19,33 @@ REDUCER_URL = os.environ.get('REDUCER_URL', 'http://127.0.0.1:8003')
 @app.route('/CountWords', methods=['POST'])
 def count_words():
 
+    print(str(datetime.datetime.now()) + ": Request Received")
+
     word_space = queue.Queue()
     threads = []
 
     text_data = request.get_data(as_text=True)
 #   print(text_data)
 
+    print(str(datetime.datetime.now()) + ": Send all request to handler")
     for line in split_lines(text_data):
         if (len(line) > 0):
             t = threading.Thread(target = handle_line, args=(word_space, line))
             t.start()
             threads.append(t)
 
+    print(str(datetime.datetime.now()) + ": Waiting all thread termination")
     [t.join() for t in threads]
 
     word_list = []
     while not word_space.empty():
         word_list.extend(word_space.get())
 
+    print(str(datetime.datetime.now()) + ": Counting Words")
     count = count_words(word_list)
 
     result  = sorted(count.items(), reverse=True, key = lambda word : word[1])[0:25]
+    print(str(datetime.datetime.now()) + ": Sorted and return the result")
 
     print(f"RESULT: {result}")
     return result
