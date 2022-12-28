@@ -10,6 +10,11 @@ import threading
 
 app = Flask(__name__)
 
+PORT = os.environ.get('PORT', 8000)
+TOKENIZER_URL = os.environ.get('TOKENIZER_URL', 'http://127.0.0.1:8001')
+MAPPER_URL = os.environ.get('MAPPER_URL', 'http://127.0.0.1:8002')
+REDUCER_URL = os.environ.get('REDUCER_URL', 'http://127.0.0.1:8003')
+
 @app.route('/CountWords', methods=['POST'])
 def count_words():
 
@@ -42,20 +47,20 @@ def split_lines(data):
     return data.split('\n')
 
 def count_words(list):
-    response = requests.post('http://127.0.0.1:8003', data = json.dumps(list))
+    response = requests.post(REDUCER_URL, data = json.dumps(list))
     return  response.json()
     
 
 def handle_line(queue, line):
 #   print(line)
 
-    response = requests.get('http://127.0.0.1:8001?line=' + line)
+    response = requests.get(TOKENIZER_URL + '?line=' + line)
     word_list = response.json()
 
 #   for word in word_list:
 #       print(f"DEBUG: {word}")
 
-    response = requests.post('http://127.0.0.1:8002', data = json.dumps(word_list))
+    response = requests.post(MAPPER_URL, data = json.dumps(word_list))
     word_dicts = response.json()
 
 #   print(f"DEBUG: {word_dicts}")
@@ -64,5 +69,4 @@ def handle_line(queue, line):
 
 
 if __name__ == '__main__':
-    PORT = os.environ.get('PORT', 8000)
     app.run(debug=False, host='0.0.0.0', port=PORT)
