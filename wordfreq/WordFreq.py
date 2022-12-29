@@ -5,6 +5,7 @@ import requests
 import json
 import os
 import datetime
+import urllib
 
 import queue
 import threading
@@ -61,7 +62,7 @@ def count_words(list):
 def handle_line(queue, line):
 #   print(line)
 
-    response = requests.get(TOKENIZER_URL + '?line=' + line)
+    response = requests.get(TOKENIZER_URL + '?line=' + urllib.parse.quote(line))
     word_list = response.json()
 
 #   for word in word_list:
