@@ -37,12 +37,12 @@ def count_words():
     for line in split_lines(text_data):
         if (len(line) > 0):
             handle_line(word_space, line);
-#           t = threading.Thread(target = handle_line, args=(word_space, line))
-#           t.start()
-#           threads.append(t)
+            t = threading.Thread(target = handle_line, args=(word_space, line))
+            t.start()
+            threads.append(t)
 
     log("Waiting all thread termination")
-#   [t.join() for t in threads]
+    [t.join() for t in threads]
 
     word_list = []
     while not word_space.empty():

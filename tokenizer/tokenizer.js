@@ -8,11 +8,11 @@ http.createServer(function (request, response) {
     if(request.method === 'GET') {
  
         var line = url.parse(request.url, true).query.line;
-        var tokens = line.split(' ');
         console.log("Received: ", line);
+        var tokens = line.split(' ');
         console.log("Response: ", tokens);
 
-        response.writeHead(200, {'Content-Type' : 'text/json'});
+        response.writeHead(200, {'Content-Type' : 'application/json'});
         response.end(JSON.stringify(tokens));
  
     }

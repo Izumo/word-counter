@@ -28,7 +28,7 @@ http.createServer(function (request, response) {
             }
             console.log("Response: ", reduced);
 
-            response.writeHead(200, {'Content-Type' : 'text/json'});
+            response.writeHead(200, {'Content-Type' : 'application/json'});
             response.end(JSON.stringify(reduced));
  
           })
