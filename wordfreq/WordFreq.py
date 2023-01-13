@@ -72,8 +72,12 @@ async def handle_lines(line, session):
     async with session.get(TOKENIZER_URL + '?line=' + urllib.parse.quote(line)) as response:
         word_list = await response.json()
 
+    log("Tokenized")
+
     async with session.post(MAPPER_URL, data = json.dumps(word_list)) as response:
         word_dicts = await response.json()
+
+    log("Mapped")
 
     return word_dicts
 
