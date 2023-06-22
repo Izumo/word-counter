@@ -69,8 +69,10 @@ def tokenize(line):
 
 async def handle_lines(line, session):
 
+    print("request")
     async with session.get(TOKENIZER_URL + '?line=' + urllib.parse.quote(line)) as response:
         word_list = await response.json()
+    print("response")
 
 #   log("Tokenized")
 
